@@ -1,0 +1,14 @@
+<%- include('includes/header.ejs') %>
+    <div class="quiz-box">
+        <% for(let quiz of quizList){%>
+            <div class="quiz-data">
+                <p><strong>Title:</strong><%= quiz.quizTitle %></p>
+                <p><strong>Description:</strong>  <%= quiz.quizDes %></p>
+                <a href="/play-quiz/<%= quiz.id %>">play quiz</a>
+            </div>
+            
+
+        <% } %>
+    </div>
+</body>
+</html>

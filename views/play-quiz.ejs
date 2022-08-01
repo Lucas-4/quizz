@@ -1,0 +1,58 @@
+<%- include('includes/header.ejs') %>
+
+
+    <div id="play-container">
+        <p id="title"><%= quiz.quizTitle %></p>
+        <p id="description"><%= quiz.quizDes %></p>
+        <% for(let question of quiz.questions){ %>
+            <div class="play-field">
+                <p class="questionTitle"><%= question.title %></p>
+                
+                <div class="options">
+                <% let options = question.options.slice();
+                let rand = Math.round(Math.random()*3);
+                options.splice(rand, 0, question.rightOption); %>
+                <% for(let option of options){ %>
+                    <p><%= option %> </p>
+                <% } %>
+                </div>
+            </div>
+        <% } %>
+        <div id="result"></div>
+        <button>SEND</button>
+    </div>
+</body>
+
+<script>
+
+    document.querySelectorAll('.options p').forEach((item) => {
+        item.addEventListener('click', (e)=> {
+        let a = e.target.parentNode.querySelectorAll('p');
+        a.forEach((item) => {
+            item.removeAttribute('class');
+        })
+        e.target.setAttribute('class', 'selected');
+    })
+    })
+
+    document.querySelector('button').addEventListener('click', async() => {
+        let data = [];
+        document.querySelectorAll('.selected').forEach((item) => {
+            data.push(item.innerText);
+        })
+        data = JSON.stringify(data);
+        
+        let a = await fetch('/play-quiz', {
+            method: 'POST',
+            body: data,
+            headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+        })
+        a = a.json().then(res => {
+            console.log(res);
+            document.querySelector('#result').innerText = 'Result = ' + res.result;
+        });
+    })
+</script>
+</html>
