@@ -2,6 +2,8 @@ const express = require('express');
 
 const session = require('express-session');
 
+const MemoryStore = require('memorystore')(session);
+
 const bodyParser = require('body-parser');
 
 const createQuizRoutes = require('./routes/create-quiz');
@@ -18,6 +20,9 @@ const app = express();
 
 app.use(session({
     secret: 'mysecret',
+    store: new MemoryStore({
+        checkPeriod: 86400000
+      }),
     resave: false,
     saveUninitialized: false
 }))
