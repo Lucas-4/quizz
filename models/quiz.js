@@ -1,6 +1,8 @@
-const db = require('../database');
+const fs = require('fs');
 
-let quizList = [];
+const path = require('path');
+
+const p = path.join(__dirname, '../', 'data', 'quiz.json');
 
 class Question {
     constructor(){
@@ -13,13 +15,11 @@ class Question {
         this.title = title;
         this.rightOption = rightOption;
         this.options = options;
-        return this;
     }
 }
 
 class Quiz {
     constructor(quizTitle, quizDes){
-        this.id;
         this.quizTitle = quizTitle;
         this.quizDes = quizDes;
         this.questions = [];
@@ -32,53 +32,55 @@ class Quiz {
                 optionsArray.push(allOptions[j]);
             }
             let tmpQ = new Question();
-            tmpQ = tmpQ.create(title[i], rightOption[i], optionsArray);
+            tmpQ.create(title[i], rightOption[i], optionsArray);
             this.questions.push(tmpQ);
             optionsArray = [];
         }
     }
 
     save(userid){
-        db.execute('INSERT INTO quiz (quiztitle, quizdes, userid) VALUES (?, ?, ?)', [this.quizTitle, this.quizDes, userid]).then(result => {
-            let quizid = result[0].insertId;
-            for(let question of this.questions){
-                db.execute('INSERT INTO questions (quizid, questiontitle, questionropt, qopt1, qopt2, qopt3) VALUES (?, ?, ?, ?, ?, ?)', [quizid, question.title, question.rightOption, question.options[0], question.options[1], question.options[2]]);
+        try{
+            this.userid = userid;
+            let data = fs.readFileSync(p, 'utf8');
+            data = JSON.parse(data);
+            let IDcounter = data.IDcounter;
+            this.id = IDcounter;
+            IDcounter++;
+            data.IDcounter = IDcounter;
+            data.quizList.push(this);
+            data = JSON.stringify(data);
+            fs.writeFileSync(p, data);
+        } catch (err){
+            console.log(err);
+        }
+    }
+    
+
+    getById(quizid){
+        try{
+            let data = fs.readFileSync(p, 'utf8');
+            data = JSON.parse(data);
+            let quizList = data.quizList;
+            for(let quiz of quizList){
+                if(quiz.id==quizid){
+                    return quiz;
+                }
             }
-        });
+        } catch(err){
+            console.log(err);
+        }
+        
     }
 
-    async getById(quizid){
-        let quiz = await db.execute('SELECT * FROM quiz WHERE quiz.quizid = ?', [quizid]);
-        if(!(quiz[0][0]==undefined)){
-            this.id = quiz[0][0].quizid;
-            this.quizTitle = quiz[0][0].quiztitle;
-            this.quizDes = quiz[0][0].quizdes;
+    getAll(){
+        try{
+            let data = fs.readFileSync(p, 'utf8');
+            data = JSON.parse(data);
+            return data.quizList;
+        } catch (err){
+            console.log(err);
         }
-
-        let questions = await db.execute('SELECT * FROM questions WHERE questions.quizid = ?', [quizid]);
-        for(let question of questions[0]){
-            let qTmp = new Question();
-            let options = [];
-            options.push(question.qopt1);
-            options.push(question.qopt2);
-            options.push(question.qopt3);
-            qTmp.create(question.questiontitle, question.questionropt, options);
-            this.questions.push(qTmp);
-        }
-    }
-
-    async getAll(){
-        let result = await db.execute('SELECT quizid FROM quiz');
-        quizList = [];
-        let allQuiz = result[0];
-        for(let quiz of allQuiz){
-            let newQuiz = new Quiz();
-            await newQuiz.getById(quiz.quizid);
-            quizList.push(newQuiz);
-        }
-        return quizList;
         
     }
 }
-
 module.exports = Quiz;
