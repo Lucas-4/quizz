@@ -1,11 +1,46 @@
 <%- include('includes/header.ejs') %>
+.form{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+#login{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+#login input, button{
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+#login input{
+    border: none;
+    background-color: rgb(200, 195, 255);
+}
+
+#login button{
+    border: none;
+    background-color: rgb(47, 36, 165);
+    color: white;
+}
+
+#login button:hover{
+    cursor:pointer;
+}
+#login input:focus{
+    outline: none;
+}
+
+<%- include('includes/nav.ejs') %>
     <div class="form">
-        <form id="logina" action="/login" method="POST">
+        <form id="login" action="/login" method="POST">
             <input type="text" name="user">
             <input type="password" name="password">
             <button type="submit">LOGIN</button>
         </form>
     </div>
-   
 </body>
 </html>

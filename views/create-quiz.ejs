@@ -1,12 +1,81 @@
 <%- include('includes/header.ejs') %>
+#container{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 30px;
+}
+#container input{
+    margin-bottom: 10px;
+    font-size: 20px;
+    padding: 10px;
+    text-align: center;
+}
+#container button{
+    font-size: 20px;
+    padding: 10px;
+}
+.quiz-qa{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 30px;
+}
+#add-question{
+    background-color: rgb(89, 76, 233);
+    text-align: center;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+#add-question:hover{
+    cursor: pointer;
+}
 
+#submit{
+    margin-top: 10px;
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(4, 126, 51);
+    color: white;
+}
+
+#submit:hover{
+    cursor: pointer;
+}
+input{
+    border-radius: 10px;
+}
+.question{
+    border: none;
+    background-color: rgb(141, 177, 245);
+
+}
+.right-option{
+    border: none;
+    background-color: rgb(139, 239, 148);
+}
+.option{
+    border: none;
+    background-color: rgb(241, 164, 164);
+
+}
+form{
+    display: flex;
+    flex-direction: column;
+}
+
+<%- include('includes/nav.ejs') %>
     <div id="container">
         <form action="/user/create-quiz" method="POST">
             <input type="text" name="quizTitle" placeholder="Quiz title">
             <input type="text" name="quizDescription" placeholder="Quiz description">
             <div id="qa-field">
                 <div class="quiz-qa">
-                    <p>Question 1</p>
                     <input type="text" name="question" class="question" placeholder="question">
                     <input type="text" name="rightOption"  placeholder="right-option" class="right-option">
                     <input type="text" name="option" class="option">
@@ -14,7 +83,6 @@
                     <input type="text" name="option" class="option">
                 </div>
                 <div class="quiz-qa">
-                    <p>Question 2</p>
                     <input type="text" name="question" class="question" placeholder="question">
                     <input type="text" name="rightOption"  placeholder="right-option" class="right-option">
                     <input type="text" name="option" class="option">
@@ -24,9 +92,9 @@
                 <div class="quiz-qa">
                 </div>
             </div>
-            <button type="submit">CREATE QUIZ</button>
+            <div id="add-question">ADD QUESTION</div>
+            <button id="submit" type="submit">CREATE QUIZ</button>
         </form>
-        <div id="add-question">ADD QUESTION</div>
     </div>
 </body>
 <script>
@@ -34,15 +102,13 @@
 document.querySelector('#add-question').addEventListener('click', ()=>{
     let qaNum = document.querySelectorAll('.quiz-qa').length;
     document.querySelectorAll('.quiz-qa')[qaNum-1].innerHTML = `<div class="quiz-qa">
-                    <p>Question 2</p>
                     <input type="text" name="question" class="question" placeholder="question">
                     <input type="text" name="rightOption"  placeholder="right-option" class="right-option">
                     <input type="text" name="option" class="option">
                     <input type="text" name="option" class="option">
                     <input type="text" name="option" class="option">
                 </div>
-            <div class="quiz-qa">
-            </div>`;
+            <div class="quiz-qa"></div>`;
 })
 </script>
 </html>

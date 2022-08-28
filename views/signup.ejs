@@ -1,4 +1,39 @@
 <%- include('includes/header.ejs') %>
+.form{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+#signup{
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+#signup input, button{
+    font-size: 20px;
+    padding: 5px;
+    margin-top: 5px;
+    border-radius: 10px;
+}
+#signup input{
+    border: none;
+    background-color: rgb(200, 195, 255);
+}
+
+#signup button{
+    border: none;
+    background-color: rgb(47, 36, 165);
+    color: white;
+}
+
+#signup button:hover{
+    cursor:pointer;
+}
+#signup input:focus{
+    outline: none;
+}
+<%- include('includes/nav.ejs') %>
     <div class="form">
         <form id="signup" action="/signup" method="POST">
             <input type="text" name="user" placeholder="username">

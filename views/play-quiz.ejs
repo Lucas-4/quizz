@@ -1,5 +1,86 @@
 <%- include('includes/header.ejs') %>
 
+.play-field .selected{
+    color: red;
+}
+#play-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 30px;
+}
+#play-container p{
+    width: 200px;
+    text-align: center;
+    display: block;
+}
+.options p{
+    background-color: rgb(101, 57, 213);
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+.options p:hover{
+    cursor: pointer;
+}
+.play-field{
+    border: 1px solid black;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 10px;
+}
+#title{
+    margin-top: 20px;
+    background-color: rgb(101, 57, 213);
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+#description{
+    margin-top: 20px;
+    background-color: rgb(101, 57, 213);
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+#play-container button{
+    background-color: rgb(101, 57, 213);
+    margin-bottom: 15px;
+    padding: 10px;
+    border:none;
+    border-radius: 10px;
+    color: white;
+}
+#play-container button:hover{
+    cursor: pointer;
+}
+form{
+    width: 30%;
+}
+.form{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.form input{
+    font-size: 20px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+.questionTitle{
+    font-weight: bolder;
+    background-color: rgb(45, 3, 87);
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+}
+
+<%- include('includes/nav.ejs') %>
 
     <div id="play-container">
         <p id="title"><%= quiz.quizTitle %></p>

@@ -1,24 +1,75 @@
 <%- include('includes/header.ejs') %>
+    #main{
+        padding: 15px;
+        display: flex;
+        justify-content: space-evenly;
+        height: 100%;
+    }
+
+    #user{
+        border: 1px solid gray;
+        border-radius: 20px;
+        padding: 10px;
+        width: 20%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        height: 100%;
+        font-size: 20px;
+    }
+    #user a{
+        display: block;
+        background-color: rgb(47, 36, 165);
+        color: white;
+        text-decoration: none;
+        padding: 7px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    #my-quiz{
+        border: 1px solid gray;
+        border-radius: 20px;
+        padding: 10px;
+        width: 70%;
+        height: 100%;
+
+    }
+    .quiz-data{
+        background-color: rgb(178, 174, 229);
+        padding: 10px;
+        border-radius: 10px;
+        margin-top: 10px;
+    }
+    .quiz-data a{
+        display: inline-block;
+        background-color: rgb(47, 36, 165);
+        color: white;
+        text-decoration: none;
+        padding: 7px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .quiz-data strong{
+        margin-right: 3px;
+    }
+<%- include('includes/nav.ejs') %>
     <div id="main">
         <div id="user">
             <p><%= username %></p>
             <a href="/user/create-quiz">CREATE QUIZ</a>
         </div>
-        
         <div id="my-quiz">
             <h1>MY QUIZ LIST</h1>
             <% for(let quiz of quizList){%>
                 <div class="quiz-data">
                     <p><strong>Title:</strong><%= quiz.quizTitle %></p>
                     <p><strong>Description:</strong>  <%= quiz.quizDes %></p>
-                    <a href="/play-quiz/<%= quiz.id %>">play quiz</a>
+                    <a href="/play-quiz/<%= quiz.id %>">PLAY QUIZ</a>
                 </div>
-                
-
             <% } %>
             </div>
     </div>
     </body>
-    
-    
 </html>

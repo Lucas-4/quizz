@@ -1,0 +1,19 @@
+</style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div id="nav-right">
+                <a href="/">QUIZZ</a>
+            </div>
+            <div id="nav-left">
+                <% if(isLogged==true){ %>
+                    <a href="/user">MY PROFILE</a>
+                    <a href="/logout">LOGOUT</a>
+                <% }else{ %>
+                    <a href="/login">LOGIN</a>
+                    <a href="/signup">SIGN UP</a>
+                <% } %>
+            </div>
+        </nav>
+    </header>
